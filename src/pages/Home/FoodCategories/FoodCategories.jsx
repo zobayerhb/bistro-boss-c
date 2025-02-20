@@ -13,15 +13,18 @@ import slide2 from "../../../assets/home/slide2.jpg";
 import slide3 from "../../../assets/home/slide3.jpg";
 import slide4 from "../../../assets/home/slide4.jpg";
 import slide5 from "../../../assets/home/slide5.jpg";
+import SectionTitle from "../../../components/SectionTitle/SectionTitle";
 
 const FoodCategories = () => {
   return (
-    <>
-      <div className="mt-14 mb-8">
-        <h1 className="uppercase text-4xl font-semibold text-center ">
-          foods categories
-        </h1>
-      </div>
+    <section>
+      {/* section titile */}
+      <SectionTitle
+        subheading="From 11:00am to 10:00pm"
+        heading="ORDER ONLINE"
+      />
+
+      {/* swiper slider */}
       <Swiper
         slidesPerView={4}
         autoplay={{
@@ -67,7 +70,7 @@ const FoodCategories = () => {
           </h3>
         </SwiperSlide>
       </Swiper>
-    </>
+    </section>
   );
 };
 
