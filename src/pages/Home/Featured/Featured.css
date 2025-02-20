@@ -1,0 +1,17 @@
+.featured-bg {
+  background: url("../../../assets/home/featured.jpg");
+  background-position: center;
+  background-size: cover;
+  position: relative;
+}
+
+.featured-bg::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: black;
+  opacity: 0.6;
+}

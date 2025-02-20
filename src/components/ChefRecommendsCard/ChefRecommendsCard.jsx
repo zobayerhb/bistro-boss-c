@@ -18,7 +18,7 @@ const ChefRecommendsCard = () => {
           Lettuce, Eggs, Parmesan Cheese, Chicken Breast Fillets.
         </p>
         <div className=" justify-center py-6">
-          <button className="btn border-b-orange-300 border-b-4 hover:bg-[#1F2937] transition-all hover:border-b-[#1F2937] hover:border-b-4 uppercase text-orange-400 font-light">
+          <button className="btn btn-outline border-0 border-b-orange-300 border-b-4 hover:bg-[#1F2937] transition-all hover:border-b-[#1F2937] hover:border-b-4 uppercase text-orange-400 font-light">
             Add to card
           </button>
         </div>
