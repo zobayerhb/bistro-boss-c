@@ -1,6 +1,7 @@
 .featured-bg {
   background: url("../../../assets/home/featured.jpg");
   background-position: center;
+  background-attachment: fixed;
   background-size: cover;
   position: relative;
 }
