@@ -40,8 +40,9 @@ const Navbar = () => {
               {navOptions}
             </ul>
           </div>
-          <Link to={"/"} className="text-xl">
-            Bistro Boss
+          <Link to={"/"} className="text-xl uppercase">
+            Bistro Boss <br />
+            <span className="font-extralight text-base tracking-widest">Restaurants</span>
           </Link>
         </div>
         <div className="navbar-center hidden lg:flex">

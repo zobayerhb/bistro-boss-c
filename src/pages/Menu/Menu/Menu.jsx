@@ -1,12 +1,17 @@
-// import DynamicPageTitle from "../../../components/DynamicPageTitle/DynamicPageTitle";
 import { useDynamicTitle } from "../../../hooks/useDynamicTitle";
+import MenuCover from "../../../shared/MenuCover/MenuCover";
+
+import menuImg from "../../../assets/menu/banner3.jpg";
 
 const Menu = () => {
   useDynamicTitle("Bistro Boss | Menu");
   return (
     <div>
-      {/* <DynamicPageTitle title={"Bistro Boss | Menu"} /> */}
-      Menu
+      <MenuCover
+        img={menuImg}
+        title="OUR MENU"
+        subTitle={"would you like to try a dish"}
+      />
     </div>
   );
 };
