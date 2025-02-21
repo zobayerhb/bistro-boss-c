@@ -42,7 +42,9 @@ const Navbar = () => {
           </div>
           <Link to={"/"} className="text-xl uppercase">
             Bistro Boss <br />
-            <span className="font-extralight text-base tracking-widest">Restaurants</span>
+            <span className="font-extralight text-base tracking-widest">
+              Restaurants
+            </span>
           </Link>
         </div>
         <div className="navbar-center hidden lg:flex">

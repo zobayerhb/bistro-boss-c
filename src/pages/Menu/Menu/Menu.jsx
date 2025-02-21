@@ -2,6 +2,7 @@ import { useDynamicTitle } from "../../../hooks/useDynamicTitle";
 import MenuCover from "../../../shared/MenuCover/MenuCover";
 
 import menuImg from "../../../assets/menu/banner3.jpg";
+import PopularMenu from "../../Home/PopularMenu/PopularMenu";
 
 const Menu = () => {
   useDynamicTitle("Bistro Boss | Menu");
@@ -12,6 +13,7 @@ const Menu = () => {
         title="OUR MENU"
         subTitle={"would you like to try a dish"}
       />
+      <PopularMenu />
     </div>
   );
 };
