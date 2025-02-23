@@ -1,9 +1,31 @@
+import { useEffect, useRef, useState } from "react";
 import loginPageBgImg from "../../assets/others/authentication.png";
 import lottieImg from "../../assets/others/authentication2.png";
 import { FaFacebook, FaGoogle, FaTwitter } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import {
+  loadCaptchaEnginge,
+  LoadCanvasTemplate,
+  validateCaptcha,
+} from "react-simple-captcha";
 
 const Login = () => {
+  const [captchaValue, setCaptchaValue] = useState("");
+  const [isCaptchaValid, setIsCaptchaValid] = useState(true);
+
+  useEffect(() => {
+    loadCaptchaEnginge(6);
+  }, []);
+
+  //   CAPTCHA VALIDATION
+  useEffect(() => {
+    if (validateCaptcha(captchaValue)) {
+      setIsCaptchaValid(false);
+    } else {
+      setIsCaptchaValid(true);
+    }
+  }, [captchaValue]);
+
   const handleLogin = (e) => {
     e.preventDefault();
     const form = e.target;
@@ -40,10 +62,26 @@ const Login = () => {
                 placeholder="Password"
                 required
               />
+
+              {/* CAPTCHA ADD INPUT*/}
+              <label className="fieldset-label">
+                <LoadCanvasTemplate />
+              </label>
+              <input
+                onBlur={(e) => setCaptchaValue(e.target.value)}
+                defaultValue={captchaValue}
+                type="text"
+                name="captcha"
+                className="input w-full outline-none focus:border-0"
+                placeholder="Write Your Catcha"
+                required
+              />
+
               <div>
                 <a className="link link-hover">Forgot password?</a>
               </div>
               <input
+                disabled={isCaptchaValid}
                 className="btn bg-[#D1A054] text-white text-base mt-4"
                 type="submit"
                 value={"Login"}
