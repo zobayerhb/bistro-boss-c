@@ -1,5 +1,4 @@
 const OrderFoodCard = ({ item }) => {
-  console.log(item);
   const { image, name, recipe, price } = item || {};
   return (
     <div className="card">

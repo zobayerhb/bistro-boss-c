@@ -34,19 +34,19 @@ const Menu = () => {
         items={dessert}
         img={dessertImg}
         subTitle="Lorem Ipsum has been the industry’s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."
-        title="desserts"
+        title="dessert"
       />
       <MenuCategory
         items={pizza}
         img={pizzaImg}
         subTitle="Lorem Ipsum has been the industry’s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."
-        title="pizzas"
+        title="pizza"
       />
       <MenuCategory
         items={salad}
         img={saladImg}
         subTitle="Lorem Ipsum has been the industry’s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."
-        title="salads"
+        title="salad"
       />
       <MenuCategory
         items={soup}
