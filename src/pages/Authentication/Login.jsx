@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import loginPageBgImg from "../../assets/others/authentication.png";
 import lottieImg from "../../assets/others/authentication2.png";
 import { FaFacebook, FaGoogle, FaTwitter } from "react-icons/fa";
@@ -9,9 +9,11 @@ import {
   validateCaptcha,
 } from "react-simple-captcha";
 import { useDynamicTitle } from "../../hooks/useDynamicTitle";
+import { AuthContext } from "../../providers/AuthProvider";
 
 const Login = () => {
   useDynamicTitle("Bistro Boss | Login Page");
+  const { singInUser } = useContext(AuthContext);
   const [captchaValue, setCaptchaValue] = useState("");
   const [isCaptchaValid, setIsCaptchaValid] = useState(true);
 
@@ -34,6 +36,15 @@ const Login = () => {
     const email = form.email.value;
     const password = form.password.value;
     console.table({ email, password });
+
+    singInUser(email, password)
+      .then((result) => {
+        const user = result.user;
+        console.log(user);
+      })
+      .catch((error) => {
+        console.log(error.message);
+      });
   };
   return (
     <div
@@ -92,7 +103,7 @@ const Login = () => {
           </form>
           <div className="px-6 text-center">
             <p className="text-orange-400 font-semibold text-xl">
-              New Here? <Link to="/register">Create a New Account</Link>
+              New Here? <Link to="/signup">Create a New Account</Link>
             </p>
             <div className="divider">OR SIGN IN</div>
             <div className="flex gap-4 justify-center">
