@@ -1,8 +1,11 @@
 import { FaFacebook, FaGoogle, FaTwitter } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import registerPageBgImg from "../../assets/others/authentication.png";
 import lottieImg from "../../assets/others/authentication2.png";
+import { useContext } from "react";
+import { AuthContext } from "../../providers/AuthProvider";
+import toast from "react-hot-toast";
 
 const SignUp = () => {
   const {
@@ -12,10 +15,27 @@ const SignUp = () => {
     formState: { errors },
   } = useForm();
 
+  const { createUser } = useContext(AuthContext);
+  const navigate = useNavigate();
+
+  // watch password for confirming the password match
   const password = watch("password");
 
   const onSubmit = (data) => {
     console.log(data);
+    const { email, password } = data;
+
+    createUser(email, password)
+      .then((result) => {
+        const user = result.user;
+        console.log(user);
+        toast.success("User Successfully Create");
+        navigate("/");
+      })
+      .catch((error) => {
+        console.log(error.message);
+        toast.error(error.message);
+      });
   };
 
   return (
@@ -94,6 +114,7 @@ const SignUp = () => {
               />
             </fieldset>
           </form>
+          {/* register with social links */}
           <div className="px-6 text-center">
             <p className="text-orange-400 font-semibold text-xl">
               Have an Account? <Link to="/login">Sign IN</Link>

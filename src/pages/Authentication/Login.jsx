@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import loginPageBgImg from "../../assets/others/authentication.png";
 import lottieImg from "../../assets/others/authentication2.png";
 import { FaFacebook, FaGoogle, FaTwitter } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {
   loadCaptchaEnginge,
   LoadCanvasTemplate,
@@ -10,9 +10,11 @@ import {
 } from "react-simple-captcha";
 import { useDynamicTitle } from "../../hooks/useDynamicTitle";
 import { AuthContext } from "../../providers/AuthProvider";
+import toast from "react-hot-toast";
 
 const Login = () => {
   useDynamicTitle("Bistro Boss | Login Page");
+  const navigate = useNavigate();
   const { singInUser } = useContext(AuthContext);
   const [captchaValue, setCaptchaValue] = useState("");
   const [isCaptchaValid, setIsCaptchaValid] = useState(true);
@@ -41,9 +43,12 @@ const Login = () => {
       .then((result) => {
         const user = result.user;
         console.log(user);
+        toast.success("User Successfully Login");
+        navigate("/");
       })
       .catch((error) => {
         console.log(error.message);
+        toast.error(error.message);
       });
   };
   return (
