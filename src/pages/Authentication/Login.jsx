@@ -8,8 +8,10 @@ import {
   LoadCanvasTemplate,
   validateCaptcha,
 } from "react-simple-captcha";
+import { useDynamicTitle } from "../../hooks/useDynamicTitle";
 
 const Login = () => {
+  useDynamicTitle("Bistro Boss | Login Page");
   const [captchaValue, setCaptchaValue] = useState("");
   const [isCaptchaValid, setIsCaptchaValid] = useState(true);
 
