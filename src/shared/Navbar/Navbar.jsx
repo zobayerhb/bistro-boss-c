@@ -23,6 +23,10 @@ const Navbar = () => {
       <li>
         <Link to="/order/salad">Our Shop</Link>
       </li>
+      <li>
+        <Link to="/secret">Secret</Link>
+      </li>
+
       {user ? (
         <>
           <li>
