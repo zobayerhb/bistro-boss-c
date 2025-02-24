@@ -8,9 +8,15 @@ const SignUp = () => {
   const {
     register,
     handleSubmit,
+    watch,
     formState: { errors },
   } = useForm();
-  const onSubmit = (data) => console.log(data);
+
+  const password = watch("password");
+
+  const onSubmit = (data) => {
+    console.log(data);
+  };
 
   return (
     <div
@@ -34,7 +40,9 @@ const SignUp = () => {
                 placeholder="User Name"
                 // required
               />
-              {errors.name && <span className="text-red-600">Name field is required</span>}
+              {errors.name && (
+                <span className="text-red-600">Name field is required</span>
+              )}
               <label className="fieldset-label">Email</label>
               <input
                 type="email"
@@ -48,20 +56,37 @@ const SignUp = () => {
               <input
                 type="password"
                 name="password"
-                {...register("password", { required: true })}
+                {...register("password", {
+                  required: true,
+                  pattern: {
+                    value:
+                      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
+                  },
+                })}
                 className="input w-full outline-none focus:border-0"
                 placeholder="Password"
                 // required
               />
+              {errors.password && (
+                <span className="text-red-600">
+                  Password must be at least one uppercse, one lowercse, one
+                  number and one special character
+                </span>
+              )}
               <label className="fieldset-label">Confirm Password</label>
               <input
                 type="password"
                 name="con-password"
-                {...register("con-password", { required: true })}
+                {...register("conPassword", {
+                  required: "Confirm password is required",
+                  validate: (value) =>
+                    value === password || "Passwords do not match",
+                })}
                 className="input w-full outline-none focus:border-0"
                 placeholder="Confirm Password"
                 // required
               />
+              <p className="text-red-600">{errors.conPassword?.message}</p>
               <input
                 className="btn bg-[#D1A054] text-white text-base mt-4"
                 type="submit"
