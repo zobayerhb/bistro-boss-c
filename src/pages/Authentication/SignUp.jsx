@@ -1,12 +1,17 @@
 import { FaFacebook, FaGoogle, FaTwitter } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import { useForm } from "react-hook-form";
 import registerPageBgImg from "../../assets/others/authentication.png";
 import lottieImg from "../../assets/others/authentication2.png";
 
 const SignUp = () => {
-  const handleRegister = (e) => {
-    e.preventDefault();
-  };
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+  const onSubmit = (data) => console.log(data);
+
   return (
     <div
       style={{ backgroundImage: `url(${registerPageBgImg})` }}
@@ -18,39 +23,44 @@ const SignUp = () => {
         </div>
         <div className="card w-full shrink-0 max-w-md">
           <h2 className="text-black font-bold text-4xl text-center">SignUp</h2>
-          <form onSubmit={handleRegister} className="card-body">
+          <form onSubmit={handleSubmit(onSubmit)} className="card-body">
             <fieldset className="fieldset text-base space-y-2">
               <label className="fieldset-label">Name</label>
               <input
                 type="text"
                 name="name"
+                {...register("name", { required: true })}
                 className="input w-full outline-none focus:border-0"
                 placeholder="User Name"
-                required
+                // required
               />
+              {errors.name && <span className="text-red-600">Name field is required</span>}
               <label className="fieldset-label">Email</label>
               <input
                 type="email"
                 name="email"
+                {...register("email", { required: true })}
                 className="input w-full outline-none focus:border-0"
                 placeholder="Email"
-                required
+                // required
               />
               <label className="fieldset-label">Password</label>
               <input
                 type="password"
                 name="password"
+                {...register("password", { required: true })}
                 className="input w-full outline-none focus:border-0"
                 placeholder="Password"
-                required
+                // required
               />
               <label className="fieldset-label">Confirm Password</label>
               <input
                 type="password"
                 name="con-password"
+                {...register("con-password", { required: true })}
                 className="input w-full outline-none focus:border-0"
                 placeholder="Confirm Password"
-                required
+                // required
               />
               <input
                 className="btn bg-[#D1A054] text-white text-base mt-4"
