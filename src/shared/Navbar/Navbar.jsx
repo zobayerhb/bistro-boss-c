@@ -1,11 +1,10 @@
-import { useContext } from "react";
 import { Link } from "react-router-dom";
-import { AuthContext } from "../../providers/AuthProvider";
 import { FaShoppingCart } from "react-icons/fa";
 import toast from "react-hot-toast";
+import useAuth from "../../hooks/useAuth";
 
 const Navbar = () => {
-  const { user, logoutUser } = useContext(AuthContext);
+  const { user, logoutUser } = useAuth();
 
   const handleLogout = () => {
     logoutUser(() => {
@@ -47,7 +46,7 @@ const Navbar = () => {
       <li>
         <Link to="/">
           <button className="flex items-center cursor-pointer">
-            <FaShoppingCart size={20}/>
+            <FaShoppingCart size={20} />
             <div className="badge badge-xs badge-secondary">+0</div>
           </button>
         </Link>

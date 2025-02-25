@@ -1,5 +1,22 @@
+import { useLocation, useNavigate } from "react-router-dom";
+import useAuth from "../../hooks/useAuth";
+
 const OrderFoodCard = ({ item }) => {
+  const navigate = useNavigate();
+  const location = useLocation();
+  const { user } = useAuth();
   const { image, name, recipe, price } = item || {};
+  // const from = location.state?.from?.pathname || "/";
+
+  const handleAddCart = (food) => {
+    // console.log(food, user.email);
+    if (user && user?.email) {
+      // TODO: send data to the database;
+    } else {
+      navigate('/login', { state: { from: location } })
+    }
+  };
+
   return (
     <div className="card">
       <figure>
@@ -18,7 +35,10 @@ const OrderFoodCard = ({ item }) => {
         </h2>
         <p className="text-base px-6 flex flex-auto">{recipe}</p>
         <div className="py-6">
-          <button className="btn btn-outline border-0 border-b-orange-300 border-b-4 hover:bg-[#1F2937] transition-all hover:border-b-[#1F2937] hover:border-b-4 uppercase text-orange-400 font-light">
+          <button
+            onClick={() => handleAddCart(item)}
+            className="btn btn-outline border-0 border-b-orange-300 border-b-4 hover:bg-[#1F2937] transition-all hover:border-b-[#1F2937] hover:border-b-4 uppercase text-orange-400 font-light"
+          >
             Add to card
           </button>
         </div>
