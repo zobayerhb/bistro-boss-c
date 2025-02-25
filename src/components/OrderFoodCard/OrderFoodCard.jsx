@@ -2,6 +2,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
 import useSecureAxios from "../../hooks/useSecureAxios";
 import toast from "react-hot-toast";
+import useCart from "../../hooks/useCart";
 
 const OrderFoodCard = ({ item }) => {
   const { image, name, recipe, price, _id } = item || {};
@@ -9,8 +10,9 @@ const OrderFoodCard = ({ item }) => {
   const location = useLocation();
   const { user } = useAuth();
   const axiosSecure = useSecureAxios();
+  const [, refetch] = useCart();
 
-  const handleAddCart = (food) => {
+  const handleAddCart = () => {
     // console.log(food, user.email);
     if (user && user?.email) {
       const cartItem = {
@@ -28,6 +30,7 @@ const OrderFoodCard = ({ item }) => {
           if (res.data.insertedId) {
             toast.success(`Your ${name} Item Added Successfully`);
           }
+          refetch();
         })
         .catch((error) => toast.error(error.message));
     } else {

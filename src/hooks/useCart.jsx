@@ -1,22 +1,29 @@
 import { useQuery } from "@tanstack/react-query";
 import useSecureAxios from "./useSecureAxios";
 import toast from "react-hot-toast";
+import useAuth from "./useAuth";
 
 const useCart = () => {
   const axiosSecure = useSecureAxios();
+  const { user } = useAuth();
 
   const fetchCarts = async () => {
-    const { data } = await axiosSecure.get("/carts");
+    const { data } = await axiosSecure.get(`/carts?email=${user.email}`);
     return data;
   };
-  const { error, data: cart = [] } = useQuery({
-    queryKey: ["carts"],
+
+  const {
+    refetch,
+    error,
+    data: cart = [],
+  } = useQuery({
+    queryKey: ["carts", user?.email],
     queryFn: fetchCarts,
   });
   console.log(cart);
   if (error) return toast.error(error.message);
 
-  return [cart];
+  return [cart, refetch];
 };
 
 export default useCart;
