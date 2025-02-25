@@ -15,7 +15,7 @@ const SignUp = () => {
     formState: { errors },
   } = useForm();
 
-  const { createUser } = useContext(AuthContext);
+  const { createUser, updateUserProfile } = useContext(AuthContext);
   const navigate = useNavigate();
 
   // watch password for confirming the password match
@@ -23,14 +23,18 @@ const SignUp = () => {
 
   const onSubmit = (data) => {
     console.log(data);
-    const { email, password } = data;
+    const { name, photo, email, password } = data;
 
     createUser(email, password)
       .then((result) => {
         const user = result.user;
         console.log(user);
-        toast.success("User Successfully Create");
-        navigate("/");
+        updateUserProfile(name, photo)
+          .then(() => {
+            toast.success("User Successfully Create");
+            navigate("/");
+          })
+          .catch((error) => console.log(error.message));
       })
       .catch((error) => {
         console.log(error.message);
@@ -62,6 +66,17 @@ const SignUp = () => {
               />
               {errors.name && (
                 <span className="text-red-600">Name field is required</span>
+              )}
+              <label className="fieldset-label">Photo URL</label>
+              <input
+                type="text"
+                {...register("photo", { required: true })}
+                className="input w-full outline-none focus:border-0"
+                placeholder="Photo URL"
+                // required
+              />
+              {errors.photo && (
+                <span className="text-red-600">Photo field is required</span>
               )}
               <label className="fieldset-label">Email</label>
               <input
