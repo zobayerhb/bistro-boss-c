@@ -1,19 +1,37 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
+import useSecureAxios from "../../hooks/useSecureAxios";
+import toast from "react-hot-toast";
 
 const OrderFoodCard = ({ item }) => {
+  const { image, name, recipe, price, _id } = item || {};
   const navigate = useNavigate();
   const location = useLocation();
   const { user } = useAuth();
-  const { image, name, recipe, price } = item || {};
-  // const from = location.state?.from?.pathname || "/";
+  const axiosSecure = useSecureAxios();
 
   const handleAddCart = (food) => {
     // console.log(food, user.email);
     if (user && user?.email) {
+      const cartItem = {
+        menuId: _id,
+        image,
+        email: user.email,
+        name,
+        price,
+      };
       // TODO: send data to the database;
+      axiosSecure
+        .post("/carts", { cartItem })
+        .then((res) => {
+          console.log(res.data);
+          if (res.data.insertedId) {
+            toast.success("Your Item Added Successfully");
+          }
+        })
+        .catch((error) => toast.error(error.message));
     } else {
-      navigate('/login', { state: { from: location } })
+      navigate("/login", { state: { from: location } });
     }
   };
 
