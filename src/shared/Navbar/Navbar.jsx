@@ -1,6 +1,7 @@
 import { useContext } from "react";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../providers/AuthProvider";
+import { FaShoppingCart } from "react-icons/fa";
 import toast from "react-hot-toast";
 
 const Navbar = () => {
@@ -26,7 +27,6 @@ const Navbar = () => {
       <li>
         <Link to="/secret">Secret</Link>
       </li>
-
       {user ? (
         <>
           <li>
@@ -43,6 +43,15 @@ const Navbar = () => {
           </li>
         </>
       )}
+
+      <li>
+        <Link to="/">
+          <button className="flex items-center cursor-pointer">
+            <FaShoppingCart size={20}/>
+            <div className="badge badge-xs badge-secondary">+0</div>
+          </button>
+        </Link>
+      </li>
     </>
   );
   return (
