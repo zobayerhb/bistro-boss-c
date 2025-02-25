@@ -2,9 +2,11 @@ import { Link } from "react-router-dom";
 import { FaShoppingCart } from "react-icons/fa";
 import toast from "react-hot-toast";
 import useAuth from "../../hooks/useAuth";
+import useCart from "../../hooks/useCart";
 
 const Navbar = () => {
   const { user, logoutUser } = useAuth();
+  const [cart] = useCart();
 
   const handleLogout = () => {
     logoutUser(() => {
@@ -47,7 +49,9 @@ const Navbar = () => {
         <Link to="/">
           <button className="flex items-center cursor-pointer">
             <FaShoppingCart size={20} />
-            <div className="badge badge-xs badge-secondary">+0</div>
+            <div className="badge badge-xs badge-secondary">
+              +{cart.length}
+            </div>
           </button>
         </Link>
       </li>

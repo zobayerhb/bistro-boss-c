@@ -22,11 +22,11 @@ const OrderFoodCard = ({ item }) => {
       };
       // TODO: send data to the database;
       axiosSecure
-        .post("/carts", { cartItem })
+        .post("/carts", cartItem)
         .then((res) => {
           console.log(res.data);
           if (res.data.insertedId) {
-            toast.success("Your Item Added Successfully");
+            toast.success(`Your ${name} Item Added Successfully`);
           }
         })
         .catch((error) => toast.error(error.message));
