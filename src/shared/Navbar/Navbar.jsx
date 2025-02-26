@@ -46,12 +46,10 @@ const Navbar = () => {
       )}
 
       <li>
-        <Link to="/">
+        <Link to="/dashboard/cart">
           <button className="flex items-center cursor-pointer">
             <FaShoppingCart size={20} />
-            <div className="badge badge-xs badge-secondary">
-              +{cart.length}
-            </div>
+            <div className="badge badge-xs badge-secondary">+{cart.length}</div>
           </button>
         </Link>
       </li>
