@@ -1,12 +1,25 @@
+import { FaTrashAlt } from "react-icons/fa";
 import SectionTitle from "../../../components/SectionTitle/SectionTitle";
 import useCart from "../../../hooks/useCart";
+import useSecureAxios from "../../../hooks/useSecureAxios";
 
 const Cart = () => {
-  const [cart] = useCart();
-  const totalCartProductPrice = cart.reduce(
-    (accu, currentPrice) => accu + currentPrice.price,
-    0
-  );
+  const [cart, refetch] = useCart();
+  const axiosSecure = useSecureAxios();
+
+  const totalCartProductPrice = cart.reduce((accu, currentPrice) => {
+    return accu + currentPrice.price;
+  }, 0);
+
+  const handleDelete = (id) => {
+    axiosSecure
+      .delete(`/carts/${id}`)
+      .then((result) => {
+        console.log(result.data);
+        refetch();
+      })
+      .catch((error = console.log(error.message)));
+  };
 
   return (
     <div className="">
@@ -51,7 +64,12 @@ const Cart = () => {
                   <td>{item.name}</td>
                   <td>$ {item.price}</td>
                   <th>
-                    <button className="btn btn-ghost btn-xs">details</button>
+                    <button
+                      onClick={() => handleDelete(item._id)}
+                      className="btn btn-ghost btn-md text-red-500"
+                    >
+                      <FaTrashAlt />
+                    </button>
                   </th>
                 </tr>
               ))}
