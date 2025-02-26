@@ -10,7 +10,7 @@ import { NavLink, Outlet } from "react-router-dom";
 
 const Dashboard = () => {
   return (
-    <div className="flex">
+    <div className="flex cinzel-font">
       {/* dashboard link */}
       <div className="bg-orange-300 min-h-screen px-6">
         <ul className="menu">
@@ -74,10 +74,16 @@ const Dashboard = () => {
               <FaCalendarCheck /> MY BOOKING
             </NavLink>
           </li>
+          <div className="divider"></div>
+          <li>
+            <NavLink to="/">
+              <FaHome /> Home
+            </NavLink>
+          </li>
         </ul>
       </div>
       {/* dashboard content */}
-      <div className="flex-1">
+      <div className="flex-1 bg-gray-100">
         <Outlet />
       </div>
     </div>
