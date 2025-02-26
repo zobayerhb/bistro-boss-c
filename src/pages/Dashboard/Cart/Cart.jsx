@@ -2,6 +2,7 @@ import { FaTrashAlt } from "react-icons/fa";
 import SectionTitle from "../../../components/SectionTitle/SectionTitle";
 import useCart from "../../../hooks/useCart";
 import useSecureAxios from "../../../hooks/useSecureAxios";
+import toast from "react-hot-toast";
 
 const Cart = () => {
   const [cart, refetch] = useCart();
@@ -15,10 +16,45 @@ const Cart = () => {
     axiosSecure
       .delete(`/carts/${id}`)
       .then((result) => {
-        console.log(result.data);
+        if (result.data.deletedCount > 0) {
+          toast.success("Successfully Delete");
+        }
         refetch();
       })
-      .catch((error = console.log(error.message)));
+      .catch((error) => {
+        toast.error(error.message);
+      });
+  };
+
+  const handleCofirmDelete = (id) => {
+    toast((t) => (
+      <div className="flex items-center">
+        <div>
+          <p>
+            Are You <b>Sure?</b>
+          </p>
+        </div>
+        <div className="space-x-1">
+          <button
+            onClick={() => {
+              toast.dismiss(t.id);
+              handleDelete(id);
+            }}
+            className="text-white px-4 py-0.5 rounded bg-red-500 text-sm"
+          >
+            Yes
+          </button>
+          <button
+            className="px-4 py-0.5 text-sm bg-green-400 text-white rounded"
+            onClick={() => {
+              toast.dismiss(t.id);
+            }}
+          >
+            No
+          </button>
+        </div>
+      </div>
+    ));
   };
 
   return (
@@ -65,7 +101,7 @@ const Cart = () => {
                   <td>$ {item.price}</td>
                   <th>
                     <button
-                      onClick={() => handleDelete(item._id)}
+                      onClick={() => handleCofirmDelete(item._id)}
                       className="btn btn-ghost btn-md text-red-500"
                     >
                       <FaTrashAlt />
