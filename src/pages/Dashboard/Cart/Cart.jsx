@@ -3,6 +3,10 @@ import useCart from "../../../hooks/useCart";
 
 const Cart = () => {
   const [cart] = useCart();
+  const totalCartProductPrice = cart.reduce(
+    (accu, currentPrice) => accu + currentPrice.price,
+    0
+  );
 
   return (
     <div className="">
@@ -10,12 +14,12 @@ const Cart = () => {
         <SectionTitle subheading={"My Cart"} heading="WANNA ADD MORE?" />
       </div>
       <div className="bg-white px-10 py-8 w-[850px] mx-auto rounded">
-        <div className="flex justify-evenly items-center ">
+        <div className="flex justify-evenly items-center">
           <span className="uppercase font-bold text-2xl">
             Total orders: {cart.length}
           </span>
           <span className="uppercase font-bold text-2xl">
-            Total price: {cart.length}
+            Total price: ${totalCartProductPrice}
           </span>
           <button className="btn btn-accent uppercase">pay</button>
         </div>
@@ -45,7 +49,7 @@ const Cart = () => {
                     </div>
                   </td>
                   <td>{item.name}</td>
-                  <td>{item.price}</td>
+                  <td>$ {item.price}</td>
                   <th>
                     <button className="btn btn-ghost btn-xs">details</button>
                   </th>
