@@ -1,4 +1,3 @@
-import { FaFacebook, FaGoogle, FaTwitter } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import registerPageBgImg from "../../assets/others/authentication.png";
@@ -7,6 +6,7 @@ import { useContext } from "react";
 import { AuthContext } from "../../providers/AuthProvider";
 import toast from "react-hot-toast";
 import useUserAxios from "../../hooks/useUserAxios";
+import SocialLogin from "../../components/SocialLogin/SocialLogin";
 
 const SignUp = () => {
   const {
@@ -140,24 +140,11 @@ const SignUp = () => {
               />
             </fieldset>
           </form>
+          <p className="text-orange-400 font-semibold text-xl text-center">
+            Already Have an Account? <Link to="/login"><b>Sign In</b></Link>
+          </p>
           {/* register with social links */}
-          <div className="px-6 text-center">
-            <p className="text-orange-400 font-semibold text-xl">
-              Have an Account? <Link to="/login">Sign IN</Link>
-            </p>
-            <div className="divider">OR SIGN UP WITH</div>
-            <div className="flex gap-4 justify-center">
-              <button className="cursor-pointer">
-                <FaFacebook size={24} />
-              </button>
-              <button className="cursor-pointer">
-                <FaGoogle size={24} />
-              </button>
-              <button className="cursor-pointer">
-                <FaTwitter size={24} />
-              </button>
-            </div>
-          </div>
+          <SocialLogin />
         </div>
       </div>
     </div>

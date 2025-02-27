@@ -1,7 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import loginPageBgImg from "../../assets/others/authentication.png";
 import lottieImg from "../../assets/others/authentication2.png";
-import { FaFacebook, FaGoogle, FaTwitter } from "react-icons/fa";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import {
   loadCaptchaEnginge,
@@ -11,6 +10,7 @@ import {
 import { useDynamicTitle } from "../../hooks/useDynamicTitle";
 import { AuthContext } from "../../providers/AuthProvider";
 import toast from "react-hot-toast";
+import SocialLogin from "../../components/SocialLogin/SocialLogin";
 
 const Login = () => {
   useDynamicTitle("Bistro Boss | Login Page");
@@ -109,23 +109,14 @@ const Login = () => {
               />
             </fieldset>
           </form>
-          <div className="px-6 text-center">
-            <p className="text-orange-400 font-semibold text-xl">
-              New Here? <Link to="/signup">Create a New Account</Link>
-            </p>
-            <div className="divider">OR SIGN IN</div>
-            <div className="flex gap-4 justify-center">
-              <button className="cursor-pointer">
-                <FaFacebook size={24} />
-              </button>
-              <button className="cursor-pointer">
-                <FaGoogle size={24} />
-              </button>
-              <button className="cursor-pointer">
-                <FaTwitter size={24} />
-              </button>
-            </div>
-          </div>
+          <p className="text-orange-400 font-semibold text-xl text-center">
+            Don't Have an Account?{" "}
+            <Link to="/signup">
+              <b>Sign Up</b>
+            </Link>
+          </p>
+          {/* social login  */}
+          <SocialLogin />
         </div>
       </div>
     </div>
