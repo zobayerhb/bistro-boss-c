@@ -11,11 +11,13 @@ import useCart from "../hooks/useCart";
 
 const Dashboard = () => {
   const [cart] = useCart();
+  const isAdmin = true;
 
   return (
     <div className="flex cinzel-font">
       {/* dashboard link */}
       <div className="bg-orange-300 min-h-screen px-6">
+        {/* public user routes */}
         <ul className="menu">
           <li>
             <NavLink
@@ -77,6 +79,8 @@ const Dashboard = () => {
               <FaCalendarCheck /> MY BOOKING
             </NavLink>
           </li>
+
+          {/* common link */}
           <div className="divider"></div>
           <li>
             <NavLink to="/">

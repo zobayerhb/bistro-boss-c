@@ -8,9 +8,10 @@ const Cart = () => {
   const [cart, refetch] = useCart();
   const axiosSecure = useSecureAxios();
 
-  const totalCartProductPrice = cart.reduce((accu, currentPrice) => {
-    return accu + currentPrice.price;
-  }, 0);
+  const totalCartProductPrice = cart.reduce(
+    (accumulator, currentValue) => accumulator + currentValue.price,
+    0
+  );
 
   // delete cart item
   const handleDelete = (id) => {

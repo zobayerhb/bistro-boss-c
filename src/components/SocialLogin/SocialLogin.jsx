@@ -1,14 +1,26 @@
 import { FaFacebook, FaGoogle, FaTwitter } from "react-icons/fa";
 import useAuth from "../../hooks/useAuth";
 import toast from "react-hot-toast";
+import useUserAxios from "../../hooks/useUserAxios";
+import { useNavigate } from "react-router";
 
 const SocialLogin = () => {
+  const navigate = useNavigate();
   const { googleLogin } = useAuth();
+  const axiosPublic = useUserAxios();
+
   const handleGoogleLogin = () => {
     googleLogin()
       .then((result) => {
         const user = result.user;
-        console.log(user);
+        const userInfo = {
+          email: user?.email,
+          name: user?.displayName,
+        };
+        axiosPublic.post("/user", userInfo).then((res) => {
+          console.log(res.data);
+          navigate("/");
+        });
       })
       .catch((error) => toast.error(error.message));
   };

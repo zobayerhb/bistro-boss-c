@@ -25,9 +25,6 @@ const Navbar = () => {
       <li>
         <Link to="/order/salad">Our Shop</Link>
       </li>
-      <li>
-        <Link to="/secret">Secret</Link>
-      </li>
       {user ? (
         <>
           <li>
@@ -39,9 +36,6 @@ const Navbar = () => {
           <li>
             <Link to="/login">Login</Link>
           </li>
-          <li>
-            <Link to="/signup">Signup</Link>
-          </li>
         </>
       )}
 
@@ -49,7 +43,9 @@ const Navbar = () => {
         <Link to="/dashboard/cart">
           <button className="flex items-center cursor-pointer">
             <FaShoppingCart size={20} />
-            <div className="badge badge-xs badge-secondary">+{cart.length}</div>
+            <div className="badge badge-xs badge-secondary">
+              +{cart.length || 0}
+            </div>
           </button>
         </Link>
       </li>

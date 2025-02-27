@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import useSecureAxios from "./useSecureAxios";
 import toast from "react-hot-toast";
 import useAuth from "./useAuth";
+import { useEffect } from "react";
 
 const useCart = () => {
   const axiosSecure = useSecureAxios();
@@ -17,10 +18,16 @@ const useCart = () => {
     error,
     data: cart = [],
   } = useQuery({
-    queryKey: ["carts", user?.email],
+    queryKey: ["cart", user?.email],
     queryFn: fetchCarts,
+    enabled: !!user?.email
   });
-  if (error) return toast.error(error.message);
+
+  useEffect(() => {
+    if (error) {
+      return toast.error(error.message);
+    }
+  }, [error]);
 
   return [cart, refetch];
 };
