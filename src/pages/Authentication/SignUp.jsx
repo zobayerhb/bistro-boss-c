@@ -6,6 +6,7 @@ import lottieImg from "../../assets/others/authentication2.png";
 import { useContext } from "react";
 import { AuthContext } from "../../providers/AuthProvider";
 import toast from "react-hot-toast";
+import useUserAxios from "../../hooks/useUserAxios";
 
 const SignUp = () => {
   const {
@@ -17,27 +18,37 @@ const SignUp = () => {
 
   const { createUser, updateUserProfile } = useContext(AuthContext);
   const navigate = useNavigate();
+  const userAxios = useUserAxios();
 
   // watch password for confirming the password match
   const password = watch("password");
 
   const onSubmit = (data) => {
-    console.log(data);
     const { name, photo, email, password } = data;
 
     createUser(email, password)
       .then((result) => {
         const user = result.user;
-        console.log(user);
+        // console.log(user);
+
+        // update user profile when user signup---> name, photoURL,
         updateUserProfile(name, photo)
           .then(() => {
-            toast.success("User Successfully Create");
-            navigate("/");
+            // save user signup data to databse --> email & name
+            userAxios
+              .post("/user", { name, email })
+              .then((data) => {
+                console.log(data.data);
+                toast.success("User Successfully Create");
+                navigate("/");
+              })
+              .catch((error) => {
+                toast.error(error.message);
+              });
           })
-          .catch((error) => console.log(error.message));
+          .catch((error) => toast.error(error.message));
       })
       .catch((error) => {
-        console.log(error.message);
         toast.error(error.message);
       });
   };

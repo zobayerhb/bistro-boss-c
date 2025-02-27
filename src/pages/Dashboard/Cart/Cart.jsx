@@ -12,6 +12,7 @@ const Cart = () => {
     return accu + currentPrice.price;
   }, 0);
 
+  // delete cart item
   const handleDelete = (id) => {
     axiosSecure
       .delete(`/carts/${id}`)
@@ -26,6 +27,7 @@ const Cart = () => {
       });
   };
 
+  // delete confirmation button
   const handleCofirmDelete = (id) => {
     toast((t) => (
       <div className="flex items-center">
@@ -58,7 +60,7 @@ const Cart = () => {
   };
 
   return (
-    <div className="">
+    <div>
       <div>
         <SectionTitle subheading={"My Cart"} heading="WANNA ADD MORE?" />
       </div>

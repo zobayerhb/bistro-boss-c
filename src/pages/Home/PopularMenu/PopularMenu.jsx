@@ -16,8 +16,7 @@ const PopularMenu = () => {
   //       setMenu(popularItems);
   //     });
   // }, []);
-  console.log(menu);
-
+  // console.log(menu);
   return (
     <div>
       <SectionTitle subheading="Check it out" heading="FROM OUR MENU" />

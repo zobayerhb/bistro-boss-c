@@ -20,7 +20,6 @@ const useCart = () => {
     queryKey: ["carts", user?.email],
     queryFn: fetchCarts,
   });
-  console.log(cart);
   if (error) return toast.error(error.message);
 
   return [cart, refetch];

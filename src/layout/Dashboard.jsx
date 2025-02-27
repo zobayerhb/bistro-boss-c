@@ -7,8 +7,11 @@ import {
   FaShoppingCart,
 } from "react-icons/fa";
 import { NavLink, Outlet } from "react-router-dom";
+import useCart from "../hooks/useCart";
 
 const Dashboard = () => {
+  const [cart] = useCart();
+
   return (
     <div className="flex cinzel-font">
       {/* dashboard link */}
@@ -51,7 +54,7 @@ const Dashboard = () => {
               }
               to="/dashboard/cart"
             >
-              <FaShoppingCart /> MY CART
+              <FaShoppingCart /> MY CART ({cart.length})
             </NavLink>
           </li>
           <li>
