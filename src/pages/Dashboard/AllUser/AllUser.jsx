@@ -59,6 +59,20 @@ const AllUser = () => {
     ));
   };
 
+  // ========= MAKE ADMIN =========
+  const handleUserRole = (user) => {
+    axiosSecure
+      .patch(`/users/admin/${user._id}`)
+      .then((res) => {
+        console.log(res.data);
+        if (res.data.modifiedCount > 0) {
+          refetch();
+          toast.success(`${user.name} now you are a admin`);
+        }
+      })
+      .catch((error) => toast.error(error.message));
+  };
+
   return (
     <div>
       <SectionTitle subheading="How many??" heading="MANAGE ALL USERS" />
@@ -85,9 +99,16 @@ const AllUser = () => {
                   <td>{user.name}</td>
                   <td className="lowercase">{user.email}</td>
                   <td>
-                    <button className="btn btn-info text-white text-lg">
-                      <FaUsers />
-                    </button>
+                    {user.role === "admin" ? (
+                      "Admin"
+                    ) : (
+                      <button
+                        onClick={() => handleUserRole(user)}
+                        className="btn btn-info text-white text-lg"
+                      >
+                        <FaUsers />
+                      </button>
+                    )}
                   </td>
                   <th>
                     <button
