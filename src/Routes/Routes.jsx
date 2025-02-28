@@ -12,6 +12,7 @@ import Reservation from "../pages/Dashboard/Reservation/Reservation";
 import PaymentHistory from "../pages/Dashboard/PaymentHistory/PaymentHistory";
 import Review from "../pages/Dashboard/Review/Review";
 import Booking from "../pages/Dashboard/Booking/Booking";
+import AllUser from "../pages/Dashboard/AllUser/AllUser";
 
 export const router = createBrowserRouter([
   {
@@ -68,6 +69,11 @@ export const router = createBrowserRouter([
       {
         path: "/dashboard/booking",
         element: <Booking />,
+      },
+      // addmin route
+      {
+        path: "/dashboard/allUser",
+        element: <AllUser />,
       },
     ],
   },
