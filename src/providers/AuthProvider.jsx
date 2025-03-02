@@ -17,7 +17,7 @@ const googleProvider = new GoogleAuthProvider();
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
-  const axisoPublic = useUserAxios();
+  const axiosPublic = useUserAxios();
 
   const createUser = (email, password) => {
     setLoading(true);
@@ -46,10 +46,10 @@ const AuthProvider = ({ children }) => {
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       console.log("Current User--->", currentUser);
+      setUser(currentUser);
       if (currentUser?.email) {
-        setUser(currentUser);
         const userInfo = { email: currentUser?.email };
-        axisoPublic
+        axiosPublic
           .post("/jwt", userInfo, { withCredentials: true })
           .then((res) => {
             console.log(res.data);
@@ -57,19 +57,18 @@ const AuthProvider = ({ children }) => {
           });
       } else {
         // token remove when user logout
-        axisoPublic
+        axiosPublic
           .post("/jwt-logout", {}, { withCredentials: true })
-          .then((result) => {
-            console.log(result.data);
+          .then(() => {
             setUser(currentUser);
+            setLoading(false);
           });
       }
-      setLoading(false);
     });
     return () => {
       return unsubscribe();
     };
-  }, []);
+  }, [axiosPublic]);
 
   const authInfo = {
     user,
