@@ -13,19 +13,30 @@ const useSecureAxios = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    axios.interceptors.request.use(
+    axiosSecure.interceptors.request.use(
       (response) => {
         return response;
       },
       async (error) => {
-        if (error.response.status === 401 || error.response.status === 403) {
+        console.log(error);
+        return Promise.reject("Promise Reject", error);
+      }
+    );
+
+    axiosSecure.interceptors.response.use(
+      (response) => {
+        return response;
+      },
+      async (error) => {
+        console.log(error);
+        if (error.response?.status === 401 || error.response?.status === 403) {
           await logoutUser();
           navigate("/login");
         }
         return Promise.reject("Promise Reject", error);
       }
     );
-  }, []);
+  }, [logoutUser]);
   return axiosSecure;
 };
 
