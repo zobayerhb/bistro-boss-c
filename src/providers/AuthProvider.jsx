@@ -9,6 +9,7 @@ import {
 } from "firebase/auth";
 import { createContext, useEffect, useState } from "react";
 import { auth } from "../firebase/firebase.config";
+import useUserAxios from "../hooks/useUserAxios";
 
 export const AuthContext = createContext(null);
 const googleProvider = new GoogleAuthProvider();
@@ -16,6 +17,7 @@ const googleProvider = new GoogleAuthProvider();
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
+  const axisoPublic = useUserAxios();
 
   const createUser = (email, password) => {
     setLoading(true);
@@ -44,7 +46,24 @@ const AuthProvider = ({ children }) => {
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       console.log("Current User--->", currentUser);
-      setUser(currentUser);
+      if (currentUser?.email) {
+        setUser(currentUser);
+        const userInfo = { email: currentUser?.email };
+        axisoPublic
+          .post("/jwt", userInfo, { withCredentials: true })
+          .then((res) => {
+            console.log(res.data);
+            setLoading(false);
+          });
+      } else {
+        // token remove when user logout
+        axisoPublic
+          .post("/jwt-logout", {}, { withCredentials: true })
+          .then((result) => {
+            console.log(result.data);
+            setUser(currentUser);
+          });
+      }
       setLoading(false);
     });
     return () => {
