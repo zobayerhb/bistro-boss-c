@@ -25,7 +25,7 @@ const Dashboard = () => {
       {/* dashboard link */}
       <div className="bg-orange-300 min-h-screen px-6">
         <ul className="menu">
-          {isAdmin ? (
+          {!isAdmin ? (
             <>
               <li>
                 <NavLink
