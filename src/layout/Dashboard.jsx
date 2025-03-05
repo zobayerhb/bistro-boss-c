@@ -18,14 +18,14 @@ const Dashboard = () => {
   const [cart] = useCart();
 
   // TODO: CHECK ADMIN EXIST OR NOT
-  const isAdmin = useAdmin();
+  const [isAdmin] = useAdmin();
 
   return (
     <div className="flex cinzel-font">
       {/* dashboard link */}
       <div className="bg-orange-300 min-h-screen px-6">
         <ul className="menu">
-          {!isAdmin ? (
+          {isAdmin ? (
             <>
               <li>
                 <NavLink
@@ -152,7 +152,7 @@ const Dashboard = () => {
         </ul>
       </div>
       {/* dashboard content */}
-      <div className="flex-1 bg-gray-100">
+      <div className={`flex-1 bg-gray-100`}>
         <Outlet />
       </div>
     </div>
