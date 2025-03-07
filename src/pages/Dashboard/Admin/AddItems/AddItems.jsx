@@ -36,7 +36,7 @@ const AddItems = () => {
       if (menuRes.insertedId) {
         reset();
         //show success alert
-        toast.success(`Your ${menuRes.name} item add to database.`);
+        toast.success(`Your ${data.name} item add to database.`);
       }
     }
     console.log(res.data.data);

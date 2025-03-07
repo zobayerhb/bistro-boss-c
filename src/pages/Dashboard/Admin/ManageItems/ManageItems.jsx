@@ -2,19 +2,23 @@ import { FaEdit, FaTrashAlt } from "react-icons/fa";
 import SectionTitle from "../../../../components/SectionTitle/SectionTitle";
 import useMenu from "../../../../hooks/useMenu";
 import toast from "react-hot-toast";
+import useSecureAxios from "../../../../hooks/useSecureAxios";
 
 const ManageItems = () => {
-  const [menu] = useMenu();
+  const [menu, , refetch] = useMenu();
+  const axiosSecure = useSecureAxios();
 
   // delete item
   const handleDelete = (id) => {
     axiosSecure
-      .delete(`/users/${id}`)
+      .delete(`/menu/${id}`)
       .then((result) => {
+        console.log(result.data);
         const user = result.data;
         if (user.deletedCount > 0) {
-          toast.success("Delete Successfully");
+          toast.success(`item successfully delete`);
         }
+        // refetch data to update UI
         refetch();
       })
       .catch((error) => toast.error(error.message));
