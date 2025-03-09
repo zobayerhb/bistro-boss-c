@@ -19,6 +19,8 @@ import Bookings from "../pages/Dashboard/Admin/Bookings/Bookings";
 import AddItems from "../pages/Dashboard/Admin/AddItems/AddItems";
 import ManageItems from "../pages/Dashboard/Admin/ManageItems/ManageItems";
 import AdminHome from "../pages/Dashboard/Admin/AdminHome/AdminHome";
+import UpdateItem from "../pages/Dashboard/Admin/UpdateItem/UpdateItem";
+import { menuLoader } from "../components/MenuLoader/MenuLoader";
 
 export const router = createBrowserRouter([
   {
@@ -104,6 +106,16 @@ export const router = createBrowserRouter([
             <ManageItems />
           </AdminRoute>
         ),
+      },
+      {
+        path: "/dashboard/updateItem/:id",
+        element: (
+          <AdminRoute>
+            <UpdateItem />
+          </AdminRoute>
+        ),
+        loader: ({ params }) =>
+          fetch(`http://localhost:5000/menu/${params.id}`),
       },
       {
         path: "/dashboard/bookings",

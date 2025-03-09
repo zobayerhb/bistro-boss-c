@@ -1,5 +1,4 @@
 import { useQuery } from "@tanstack/react-query";
-import { useEffect, useState } from "react";
 import useUserAxios from "./useUserAxios";
 
 const useMenu = () => {
@@ -18,13 +17,13 @@ const useMenu = () => {
 
   const {
     data: menu = [],
-    isLoading: loading,
+    isPending: loading,
     refetch,
   } = useQuery({
     queryKey: ["menu"],
     queryFn: async () => {
-      const { data } = await axiosPublic.get(`menu`);
-      return data;
+      const res = await axiosPublic.get(`/menu`);
+      return res.data;
     },
   });
 
