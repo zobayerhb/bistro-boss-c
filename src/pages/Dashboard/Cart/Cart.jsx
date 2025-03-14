@@ -3,6 +3,7 @@ import SectionTitle from "../../../components/SectionTitle/SectionTitle";
 import useCart from "../../../hooks/useCart";
 import useSecureAxios from "../../../hooks/useSecureAxios";
 import toast from "react-hot-toast";
+import { Link } from "react-router-dom";
 
 const Cart = () => {
   const [cart, refetch] = useCart();
@@ -73,7 +74,15 @@ const Cart = () => {
           <span className="uppercase font-bold text-2xl">
             Total price: ${totalCartProductPrice}
           </span>
-          <button className="btn btn-accent uppercase">pay</button>
+          {cart.length ? (
+            <Link to="/dashboard/payment">
+              <button className="btn btn-accent uppercase">pay</button>
+            </Link>
+          ) : (
+            <button disabled className="btn btn-accent uppercase">
+              pay
+            </button>
+          )}
         </div>
         <div className="overflow-x-auto pt-4">
           <table className="table">

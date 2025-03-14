@@ -37,7 +37,7 @@ const UpdateItem = () => {
         menuItem
       );
       console.log(menuRes);
-      if (menuRes.modifiedCout > 0) {
+      if (menuRes.modifiedCount > 0) {
         // reset();
         //show success alert
         toast.success(`Your ${data.name} item update to database.`);
@@ -114,7 +114,7 @@ const UpdateItem = () => {
               {...register("image")}
               type="file"
               className="file-input file-input-ghost mt-4"
-              required
+              // required
             />
           </div>
           <button className="btn bg-orange-300 text-white mt-4">

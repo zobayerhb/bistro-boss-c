@@ -21,6 +21,7 @@ import ManageItems from "../pages/Dashboard/Admin/ManageItems/ManageItems";
 import AdminHome from "../pages/Dashboard/Admin/AdminHome/AdminHome";
 import UpdateItem from "../pages/Dashboard/Admin/UpdateItem/UpdateItem";
 import { menuLoader } from "../components/MenuLoader/MenuLoader";
+import Payment from "../pages/Dashboard/Payment/Payment";
 
 export const router = createBrowserRouter([
   {
@@ -67,7 +68,7 @@ export const router = createBrowserRouter([
         element: <Reservation />,
       },
       {
-        path: "/dashboard/payment",
+        path: "/dashboard/paymentHistory",
         element: <PaymentHistory />,
       },
       {
@@ -81,6 +82,10 @@ export const router = createBrowserRouter([
       {
         path: "/dashboard/booking",
         element: <Booking />,
+      },
+      {
+        path: "/dashboard/payment",
+        element: <Payment />,
       },
       // addmin route
       {
