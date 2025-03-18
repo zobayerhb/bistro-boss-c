@@ -2,6 +2,7 @@ import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import { useEffect, useState } from "react";
 import useSecureAxios from "../../../hooks/useSecureAxios";
 import useCart from "../../../hooks/useCart";
+import useAuth from "../../../hooks/useAuth";
 
 const CheckOutForm = () => {
   const [clientSecret, setClientSecret] = useState("");
@@ -10,6 +11,8 @@ const CheckOutForm = () => {
   const elements = useElements();
   const axiosSecure = useSecureAxios();
   const [cart] = useCart();
+  const { user } = useAuth();
+  const [transectionId, setTransectionId] = useState("");
   const totalPrice = cart.reduce(
     (total, item) => total + Number(item.price || 0),
     0
@@ -49,6 +52,28 @@ const CheckOutForm = () => {
       console.log("Payment Method", paymentMethod);
       setError("");
     }
+
+    // payment card confirm
+    const { paymentIntent, error: confirmError } =
+      await stripe.confirmCardPayment(clientSecret, {
+        payment_method: {
+          card: card,
+          billing_details: {
+            email: user?.email || "anonymous",
+            name: user?.displayName || "anonymous",
+          },
+        },
+      });
+
+    if (confirmError) {
+      console.log("Payment confirm error", confirmError);
+    } else {
+      console.log("Peyment Confirm", paymentIntent);
+      if (paymentIntent.status === "succeeded") {
+        console.log("transection id: ", paymentIntent.id);
+        setTransectionId(paymentIntent.id);
+      }
+    }
   };
   return (
     <form onSubmit={handleSubmit}>
@@ -76,6 +101,9 @@ const CheckOutForm = () => {
         Pay
       </button>
       <p className="text-red-600 font-semibold">{error}</p>
+      {
+        transectionId && <p className="text-green-600">Your Transection id: {transectionId}</p>
+      }
     </form>
   );
 };
