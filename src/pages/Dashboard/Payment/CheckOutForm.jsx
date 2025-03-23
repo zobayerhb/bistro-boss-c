@@ -3,14 +3,17 @@ import { useEffect, useState } from "react";
 import useSecureAxios from "../../../hooks/useSecureAxios";
 import useCart from "../../../hooks/useCart";
 import useAuth from "../../../hooks/useAuth";
+import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
 const CheckOutForm = () => {
+  const navigate = useNavigate();
   const [clientSecret, setClientSecret] = useState("");
   const [error, setError] = useState("");
   const stripe = useStripe();
   const elements = useElements();
   const axiosSecure = useSecureAxios();
-  const [cart] = useCart();
+  const [cart, refetch] = useCart();
   const { user } = useAuth();
   const [transectionId, setTransectionId] = useState("");
   const totalPrice = cart.reduce(
@@ -79,12 +82,17 @@ const CheckOutForm = () => {
           transetionId: paymentIntent.id,
           cartIds: cart.map((item) => item._id),
           menuIds: cart.map((item) => item.menuId),
-          date: new Date(), // TODO: convert ucl time
+          price: totalPrice,
+          date: new Date(), // TODO: utc date convert. use moment js to
           status: "pending",
         };
-
         const { data } = await axiosSecure.post("/payments", payment);
-        console.log("data saved", data);
+        // console.log("data saved", data);
+        if (data.paymentRes?.insertedId) {
+          toast.success("Thank you for the payment..");
+          navigate("/dashboard/paymentHistory");
+        }
+        refetch();
       }
     }
   };
