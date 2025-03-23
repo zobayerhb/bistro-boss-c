@@ -105,7 +105,7 @@ const Dashboard = () => {
                   className={({ isActive }) =>
                     isActive ? "bg-blue-400 text-white" : ""
                   }
-                  to="/dashboard/payment"
+                  to="/dashboard/paymentHistory"
                 >
                   <FaMoneyBill /> PAYMENT HISTORY
                 </NavLink>

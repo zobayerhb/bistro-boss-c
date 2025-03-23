@@ -72,6 +72,19 @@ const CheckOutForm = () => {
       if (paymentIntent.status === "succeeded") {
         console.log("transection id: ", paymentIntent.id);
         setTransectionId(paymentIntent.id);
+
+        // save payment history to database
+        const payment = {
+          email: user.email,
+          transetionId: paymentIntent.id,
+          cartIds: cart.map((item) => item._id),
+          menuIds: cart.map((item) => item.menuId),
+          date: new Date(), // TODO: convert ucl time
+          status: "pending",
+        };
+
+        const { data } = await axiosSecure.post("/payments", payment);
+        console.log("data saved", data);
       }
     }
   };
@@ -101,9 +114,9 @@ const CheckOutForm = () => {
         Pay
       </button>
       <p className="text-red-600 font-semibold">{error}</p>
-      {
-        transectionId && <p className="text-green-600">Your Transection id: {transectionId}</p>
-      }
+      {transectionId && (
+        <p className="text-green-600">Your Transection id: {transectionId}</p>
+      )}
     </form>
   );
 };

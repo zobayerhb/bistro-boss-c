@@ -1,5 +1,5 @@
 const PaymentHistory = () => {
-  return <div>payment.jsx</div>;
+  return <div>paymenthistory.jsx</div>;
 };
 
 export default PaymentHistory;
