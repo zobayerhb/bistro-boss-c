@@ -3,10 +3,12 @@ import { FaShoppingCart } from "react-icons/fa";
 import toast from "react-hot-toast";
 import useAuth from "../../hooks/useAuth";
 import useCart from "../../hooks/useCart";
+import useAdmin from "../../hooks/useAdmin";
 
 const Navbar = () => {
   const { user, logoutUser } = useAuth();
   const [cart] = useCart();
+  const [isAdmin] = useAdmin();
 
   const handleLogout = () => {
     logoutUser(() => {
@@ -25,6 +27,16 @@ const Navbar = () => {
       <li>
         <Link to="/order/salad">Our Shop</Link>
       </li>
+      {user && isAdmin && (
+        <li>
+          <Link to="/dashboard/adminHome">Dashboard</Link>
+        </li>
+      )}
+      {user && !isAdmin && (
+        <li>
+          <Link to="/dashboard/userHome">Dashboard</Link>
+        </li>
+      )}
       {user ? (
         <>
           <li>

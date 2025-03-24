@@ -16,10 +16,7 @@ const CheckOutForm = () => {
   const [cart, refetch] = useCart();
   const { user } = useAuth();
   const [transectionId, setTransectionId] = useState("");
-  const totalPrice = cart.reduce(
-    (total, item) => total + Number(item.price || 0),
-    0
-  );
+  const totalPrice = cart.reduce((total, item) => total + (item.price || 0), 0);
   console.log("calculate total price", totalPrice);
 
   useEffect(() => {
